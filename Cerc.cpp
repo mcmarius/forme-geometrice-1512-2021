@@ -3,7 +3,7 @@
 //
 
 #include "Cerc.h"
-#include <cmath>
+#include <numbers>
 
 Cerc::Cerc(int raza) : raza(raza) {}
 
@@ -15,6 +15,6 @@ std::ostream &operator<<(std::ostream &os, const Cerc &cerc) {
     return os;
 }
 
-float Cerc::arie() const {
-    return M_PI * raza * raza;
+double Cerc::arie() const {
+    return std::numbers::pi * raza * raza;
 }

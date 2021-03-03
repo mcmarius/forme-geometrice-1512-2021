@@ -5,7 +5,7 @@
 #include <iostream>
 #include "Cerc.h"
 #include "Plansa.h"
-
+f(){}
 int main() {
     Plansa p;
     Cerc c(4);

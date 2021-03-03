@@ -13,7 +13,7 @@ public:
     Cerc(int raza);
     ~Cerc();
     friend std::ostream &operator<<(std::ostream &os, const Cerc &cerc);
-    float arie() const;
+    double arie() const;
 };
 
 #endif //FORME_GEOMETRICE_1512_2021_CERC_H
