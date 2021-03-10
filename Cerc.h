@@ -10,8 +10,10 @@
 class Cerc {
     int raza;
 public:
-    Cerc(int raza);
+    explicit Cerc(int raza);
+    Cerc(const Cerc& c);
     ~Cerc();
+    Cerc& operator=(const Cerc& c);
     friend std::ostream &operator<<(std::ostream &os, const Cerc &cerc);
     double arie() const;
 };
