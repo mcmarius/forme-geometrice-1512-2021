@@ -28,11 +28,12 @@ public:
         if(this != &v2) {
             int *aux = v;
             if(n < v2.n) {
-                v = new int[v2.n];
+                aux = new int[v2.n];
             }
-            std::copy(v2.v, v2.v + v2.n, v);
+            std::copy(v2.v, v2.v + v2.n, aux);
             if(n < v2.n) {
-                delete[] aux;
+                delete[] v;
+                v = aux;
             }
             n = v2.n;
         }
