@@ -6,8 +6,6 @@
 #include <numbers>
 #include <iostream>
 
-Cerc::Cerc(int raza) : raza(raza) {}
-
 Cerc::~Cerc() {
     std::cout << "destructor cerc " << raza << "\n";
 }
@@ -22,7 +20,7 @@ double Cerc::arie() const {
     return std::numbers::pi * raza * raza;
 }
 
-Cerc::Cerc(const Cerc &c) : raza(c.raza) {
+Cerc::Cerc(const Cerc &c) : raza(c.raza), Forma(c) {
     // raza = c.raza;
     std::cout << "cc cerc " << raza << "\n";
 }
@@ -34,3 +32,5 @@ Cerc &Cerc::operator=(const Cerc &c) {
     std::cout << "op= cerc " << raza << "\n";
     return *this;
 }
+
+Cerc::Cerc(int raza, const std::string &culoare) : Forma(culoare), raza(raza) {}

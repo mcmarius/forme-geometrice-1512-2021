@@ -6,6 +6,7 @@
 #include "Cerc.h"
 #include "Plansa.h"
 #include "Toolbar.h"
+#include "Forma.h"
 
 class vec {
     int *v;
@@ -66,7 +67,7 @@ int main() {
 
     p.remove(0);
 
-
+    Forma &f1 = c;
     f(c);
     Cerc c10(10);
     std::cout << "dupa c10\n";

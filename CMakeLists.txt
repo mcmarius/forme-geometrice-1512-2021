@@ -16,4 +16,4 @@ endif ()
 
 add_executable(forme_geometrice_1512_2021
         main.cpp
-        Cerc.cpp Plansa.cpp Plansa.h Toolbar.cpp Toolbar.h)
+        Cerc.cpp Plansa.cpp Plansa.h Toolbar.cpp Toolbar.h Forma.cpp Forma.h)
