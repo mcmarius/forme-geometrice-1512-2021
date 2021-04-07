@@ -22,8 +22,10 @@ public:
     }
 
     ~Cerc();
-    Cerc& operator=(const Cerc& c);
-    friend std::ostream &operator<<(std::ostream &os, const Cerc &cerc);
+    std::unique_ptr <Forma> clone() override;
+    void afisare(std::ostream &os) const override;
+    Cerc &operator=(const Cerc &c);
+//    friend std::ostream &operator<<(std::ostream &os, const Cerc &cerc);
     double arie() const override;
 };
 

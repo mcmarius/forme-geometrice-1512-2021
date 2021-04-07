@@ -4,20 +4,24 @@
 
 #include "Plansa.h"
 
-void Plansa::add(Cerc &cerc) {
-    forme.push_back(cerc);
+#include <utility>
+
+void Plansa::add(std::unique_ptr <Forma> forma) {
+//    forme.push_back(forma->clone());
+//    forme.emplace_back(forma->clone());
+    forme.emplace_back(std::move(forma));
 }
 
 void Plansa::remove(int i) {
-    forme.erase(forme.begin()+i);
+    forme.erase(forme.begin() + i);
 }
 
-Plansa::Plansa(const std::string &nume) : nume(nume) {}
+Plansa::Plansa(std::string nume) : nume(std::move(nume)) {}
 
 std::ostream &operator<<(std::ostream &os, const Plansa &plansa) {
     os << "forme: {\n";
     for(auto& forma : plansa.forme)
-        os << "\t" << forma;
+        os << "\t" << *forma;
     os << "}, nume: " << plansa.nume << "\n";
     return os;
 }

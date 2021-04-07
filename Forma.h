@@ -6,12 +6,20 @@
 #define FORME_GEOMETRICE_1512_2021_FORMA_H
 
 #include <string>
+#include <vector>
+#include <ostream>
+#include <memory>
 
 class Forma {
     std::string culoare;
+    static const std::vector <std::string> culori;
 public:
     Forma(const std::string &culoare);
     virtual double arie() const = 0;
+    virtual std::unique_ptr <Forma> clone() = 0;
+    friend std::ostream &operator<<(std::ostream &os, const Forma &forma);
+    virtual void afisare(std::ostream &os) const;
+    virtual ~Forma() = default;
 };
 
 #endif //FORME_GEOMETRICE_1512_2021_FORMA_H

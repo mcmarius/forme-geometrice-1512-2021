@@ -3,10 +3,18 @@
 //
 
 #include <iostream>
+#include <memory>
 #include "Cerc.h"
 #include "Plansa.h"
 #include "Toolbar.h"
 #include "Forma.h"
+
+class my_exception_base : public std::runtime_error {
+public:
+    my_exception_base(const std::string &arg) : runtime_error(arg) {}
+
+    my_exception_base(const char *string) : runtime_error(string) {}
+};
 
 class vec {
     int *v;
@@ -15,7 +23,8 @@ public:
     vec(int n) : n(n) {
         v = new int[n];
     }
-    vec(const vec& v2) : n(v2.n) {
+
+    vec(const vec &v2) : n(v2.n) {
         v = new int[n];
     }
     vec& operator=(const vec& v2) {
@@ -40,35 +49,104 @@ public:
         }
         return *this;
     }
+
     ~vec() {
         delete[] v;
     }
 };
 
-void f(int c) {
+void cercuri();
 
-    std::cout << "f int\n";
-}
+//void f(int c) {
+//
+//    std::cout << "f int\n";
+//}
 
-void f(Cerc c) {
-    std::cout << "f cerc\n";
-}
+//void f(Cerc c) {
+//    std::cout << "f cerc\n";
+//}
+
+
+//void func(Forma* f) {
+//
+//}
+
+class C {
+    Plansa *p;
+    Forma *f;
+public:
+    C(Plansa *p, Forma *f) : p(p), f(f) {}
+};
 
 int main() {
+    std::vector <std::reference_wrapper <Forma>> vec;
+    std::vector <Forma *> vec1;
+    vec1.push_back(new Cerc);
+    for(auto &elem : vec1)
+        delete elem;
+    std::vector <C> vec2;
+//    vec2.push_back(C(new Plansa("test"), new Cerc));
+    std::vector <std::unique_ptr <Forma>> vec3;
+    vec3.push_back(std::make_unique <Cerc>(1, "galben"));
+    std::vector <std::shared_ptr <Forma>> vec4;
+
+    std::vector <std::weak_ptr <Forma>> vec5;
+//    Forma **vec2 = new Forma*[5];
+
+    /*ret = f1(obj);
+    if(ret != 0)
+        ??? eventual return;
+    ret = f2(obj);
+    if(ret != 0)
+        return;
+    ret = f3(obj);
+    if(ret != 0)
+        return ;
+
+    f1();
+    f2();
+    f3();
+
+    try {
+        f1();
+        f2();
+        f3();
+    } catch (ceva ) {
+
+    }*/
+
+
+//throw my_exception_base("hopa...");
+    std::cout << "inainte de try/catch\n";
+    try {
+        std::cout << "inainte de constr\n";
+        cercuri();
+        Cerc cerc_rau(0);
+        std::cout << cerc_rau << "dupa constr\n";
+    }
+    catch(const std::domain_error &) {
+    }
+    catch(const std::logic_error &ex) {
+        //ex.what();
+        std::cout << ex.what() << "\n";
+    }
+    std::cout << "dupa try/catch\n";
 
     Toolbar toolbar;
     Plansa p("scratchpad");
     Cerc c(4), c2(5);
-    p.add(c);
+    {
+        p.add(std::make_unique <Cerc>(4.5));
+    }
     std::cout << c;
-    p.add(c2);
+    p.add(std::make_unique <Cerc>(5.5));
     operator<<(std::cout, c2);
     std::cout << p;
 
     p.remove(0);
 
-    Forma &f1 = c;
-    f(c);
+//    Forma &f1 = c;
+//    f(c);
     Cerc c10(10);
     std::cout << "dupa c10\n";
     Cerc c11 = Cerc(11);
@@ -90,5 +168,11 @@ int main() {
     toolbar.toggle();
     std::cout << toolbar.isHidden() << "\n";
     return 0;
+}
+
+void cercuri() {
+    Cerc cerc_bun(3);
+    std::cout << cerc_bun << "\n";
+    Cerc cerc_transparent(2, "abstracta");
 }
 

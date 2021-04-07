@@ -7,14 +7,15 @@
 
 #include <vector>
 #include <ostream>
+#include <memory>
 #include "Cerc.h"
 
 class Plansa {
-    std::vector<Cerc> forme;
+    std::vector <std::unique_ptr <Forma>> forme;
     std::string nume;
 public:
-    Plansa(const std::string &nume);
-    void add(Cerc &cerc);
+    Plansa(std::string nume);
+    void add(std::unique_ptr <Forma> forma);
     void remove(int i);
     void rename(const std::string &nume);
     friend std::ostream &operator<<(std::ostream &os, const Plansa &plansa);
