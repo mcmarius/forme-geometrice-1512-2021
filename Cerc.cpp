@@ -4,6 +4,7 @@
 
 #include "Cerc.h"
 
+// todo remove this hack; please do not do this
 #ifdef _WIN32
 #include <numbers>
 
@@ -24,6 +25,7 @@ Cerc::~Cerc() {
 
 double Cerc::arie() const {
     const double pi =
+    // todo remove this hack; please do not do this
 #ifdef _WIN32
     std::numbers::pi
 #else
