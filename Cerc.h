@@ -13,20 +13,22 @@ class Cerc : public Forma {
     int raza;
     int x, y;
 public:
-    Cerc(int raza = 1, const std::string &culoare = "rosie");
+    explicit Cerc(int raza = 1, const std::string &culoare = "rosie");
     Cerc(const Cerc &c);
+    void setRaza(int raza);
 
-    operator int() {
+    explicit operator int() const {
         std::cout << "op conversie cerc->int\n";
         return raza;
     }
 
-    ~Cerc();
+    ~Cerc() override;
     std::unique_ptr <Forma> clone() override;
     void afisare(std::ostream &os) const override;
     Cerc &operator=(const Cerc &c);
 //    friend std::ostream &operator<<(std::ostream &os, const Cerc &cerc);
     double arie() const override;
+    friend std::ostream &operator<<(std::ostream &os, const Cerc &cerc);
 };
 
 #endif //FORME_GEOMETRICE_1512_2021_CERC_H

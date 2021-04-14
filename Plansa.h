@@ -14,10 +14,11 @@ class Plansa {
     std::vector <std::unique_ptr <Forma>> forme;
     std::string nume;
 public:
-    Plansa(std::string nume);
+    explicit Plansa(std::string nume);
     void add(std::unique_ptr <Forma> forma);
     void remove(int i);
     void rename(const std::string &nume);
+    std::unique_ptr <Forma> &operator[](int i);
     friend std::ostream &operator<<(std::ostream &os, const Plansa &plansa);
 };
 

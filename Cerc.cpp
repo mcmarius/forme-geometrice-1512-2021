@@ -4,13 +4,6 @@
 
 #include "Cerc.h"
 
-// todo remove this hack; please do not do this
-#ifdef _WIN32
-#include <numbers>
-
-#else
-#include <cmath>
-#endif
 #include <iostream>
 
 Cerc::~Cerc() {
@@ -24,14 +17,8 @@ Cerc::~Cerc() {
 //}
 
 double Cerc::arie() const {
-    const double pi =
-    // todo remove this hack; please do not do this
-#ifdef _WIN32
-    std::numbers::pi
-#else
-    M_PI
-#endif
-    ;
+    // todo get better accuracy
+    const double pi = 3.14159;
     return pi * raza * raza;
 }
 
@@ -61,4 +48,13 @@ void Cerc::afisare(std::ostream &os) const {
 
 std::unique_ptr <Forma> Cerc::clone() {
     return std::make_unique <Cerc>(*this);
+}
+
+void Cerc::setRaza(int raza) {
+    Cerc::raza = raza;
+}
+
+std::ostream &operator<<(std::ostream &os, const Cerc &cerc) {
+    os << static_cast<const Forma &>(cerc) << " raza: " << cerc.raza << " x: " << cerc.x << " y: " << cerc.y;
+    return os;
 }

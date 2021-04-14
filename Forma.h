@@ -11,10 +11,11 @@
 #include <memory>
 
 class Forma {
+protected:
     std::string culoare;
     static const std::vector <std::string> culori;
 public:
-    Forma(const std::string &culoare);
+    explicit Forma(const std::string &culoare);
     virtual double arie() const = 0;
     virtual std::unique_ptr <Forma> clone() = 0;
     friend std::ostream &operator<<(std::ostream &os, const Forma &forma);

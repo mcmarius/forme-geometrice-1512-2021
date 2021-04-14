@@ -8,6 +8,7 @@
 #include "Plansa.h"
 #include "Toolbar.h"
 #include "Forma.h"
+#include "Patrat.h"
 
 class my_exception_base : public std::runtime_error {
 public:
@@ -144,6 +145,44 @@ int main() {
     std::cout << p;
 
     p.remove(0);
+    std::cout << "op[] " << *p[0] << "\n";
+    p.add(std::make_unique <Patrat>(12));
+
+    std::cout << typeid(p[0]).name();
+
+    Forma *pf = new Cerc;
+    Forma *pf2 = new Patrat;
+    Patrat pat;
+    Forma &ref1 = c2;
+    Forma &ref2 = pat;
+    std::cout
+    << "\ntypeid pf: " << typeid(pf).name() << "\n"
+    << "typeid pf2: " << typeid(pf2).name() << "\n"
+    << "typeid *pf: " << typeid(*pf).name() << "\n"
+    << "typeid *pf2: " << typeid(*pf2).name() << "\n"
+    << "typeid Cerc: " << typeid(Cerc).name() << "\n"
+    << "typeid Cerc*: " << typeid(Cerc *).name() << "\n"
+    << "typeid Cerc&: " << typeid(Cerc &).name() << "\n"
+    << "typeid c2: " << typeid(c2).name() << "\n"
+    << "typeid pat: " << typeid(pat).name() << "\n"
+    << "typeid ref1: " << typeid(ref1).name() << "\n"
+    << "typeid ref2: " << typeid(ref2).name() << "\n";
+
+    try {
+        /// reflection
+        if(typeid(*p[1]).name() == typeid(Cerc &).name())
+            std::cout << "typeid cerc ==\n";
+        else if(typeid(*p[1]).name() == typeid(Patrat &).name())
+            std::cout << "typeid patrat ==\n";
+        auto &cerc = dynamic_cast<Cerc &>(*p[1]);
+        cerc.setRaza(123);
+        std::cout << cerc;
+    }
+    catch(std::bad_cast &e) {
+        std::cout << "cast nereusit: " << e.what() << "\n";
+    }
+
+    p.add(std::make_unique <Patrat>(13, "albastru"));
 
 //    Forma &f1 = c;
 //    f(c);

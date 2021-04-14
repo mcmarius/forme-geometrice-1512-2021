@@ -20,7 +20,7 @@ Plansa::Plansa(std::string nume) : nume(std::move(nume)) {}
 
 std::ostream &operator<<(std::ostream &os, const Plansa &plansa) {
     os << "forme: {\n";
-    for(auto& forma : plansa.forme)
+    for(auto &forma : plansa.forme)
         os << "\t" << *forma;
     os << "}, nume: " << plansa.nume << "\n";
     return os;
@@ -28,4 +28,8 @@ std::ostream &operator<<(std::ostream &os, const Plansa &plansa) {
 
 void Plansa::rename(const std::string &nume) {
     Plansa::nume = nume;
+}
+
+std::unique_ptr <Forma> &Plansa::operator[](int i) {
+    return forme[i];
 }
