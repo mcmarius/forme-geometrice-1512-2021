@@ -10,11 +10,9 @@
 #include "Forma.h"
 #include "Patrat.h"
 
-class my_exception_base : public std::runtime_error {
+class conversie_nereusita : public std::logic_error {
 public:
-    my_exception_base(const std::string &arg) : runtime_error(arg) {}
-
-    my_exception_base(const char *string) : runtime_error(string) {}
+    explicit conversie_nereusita(const std::string &arg) : std::logic_error(arg) {}
 };
 
 class vec {
@@ -79,7 +77,28 @@ public:
     C(Plansa *p, Forma *f) : p(p), f(f) {}
 };
 
+// wrapper peste stoi pentru a arunca exceptii cu mesaj variabil
+void
+stoi_m(const std::string &sir, const std::string &mesaj = "conversie nereusita", std::size_t *pos = nullptr, int baza = 10) {
+    try {
+        std::stoi(sir, pos, baza);
+    }
+    catch(std::logic_error &e) {
+        std::cout << e.what() << "\n";
+        throw conversie_nereusita(mesaj);
+    }
+}
+
 int main() {
+    try {
+        stoi_m("1");
+        stoi_m("haha", "oops...");
+        stoi_m("hehe");
+    }
+    catch(conversie_nereusita &ex) {
+        std::cout << ex.what() << "\n";
+    }
+
     std::vector <std::reference_wrapper <Forma>> vec;
     std::vector <Forma *> vec1;
     vec1.push_back(new Cerc);
@@ -117,7 +136,7 @@ int main() {
     }*/
 
 
-//throw my_exception_base("hopa...");
+//throw conversie_nereusita("hopa...");
     std::cout << "inainte de try/catch\n";
     try {
         std::cout << "inainte de constr\n";
